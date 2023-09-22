@@ -43,6 +43,17 @@ MySQL: Dependência responsável pela conexão entre uma aplicação Spring e o 
 findBy() -> procurar uma informação pela sua característica (no caso os atributos).
 List<Pessoa> findByCodigo(int codigo); -> para quando se tem muitos registros 
 
+### Aula 29:
+Serviço? Onde ficaram as regras de negócio do projeto, quando temos uma rota não usamos diretamente uma ação do BD
+- Uma regra de negócio não pode estar dentro de uma rota, não é boa prática
 
+#### Aula 30:
+@Component -> resposta quando houver erro dentro da requisição
+quando sua aplicação estiver sendo executada, ele vai varrer/pesquisar os elementos que estiverem dentro da classe de Mensagem
 
+Após isso em outras classes posso utilizar o @Autowired que é a NOSSA INJENÇÃO DE DEPENDENCIAS para instanciar um objeto dessa classe
+
+Quando utilizado a injenção de dependencia, o desenvolvedor não fica mais responsável na instancia do objeto, isso fica automaticamente no Spring
+
+### Aula 31:
 
