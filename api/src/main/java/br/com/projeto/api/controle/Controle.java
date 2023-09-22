@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import br.com.projeto.api.modelo.Pessoa;
 import br.com.projeto.api.repositorio.Repositorio;
+import br.com.projeto.api.servico.Servico;
 
 //Simplesmente retornar o objeto e os dados do objeto são gravadados diretamente na resposta HTTP como JSON ou XML
+//Junção da combinação das annotations @Controller e @ResponseBody
 @RestController
 public class Controle {
 
@@ -22,21 +24,31 @@ public class Controle {
 	@Autowired
 	private Repositorio acao;
 
+	@Autowired
+	private Servico servico;
+
 	//5. Para ter acesso ao RequestBody tem que usar o método PostMapping
 	@PostMapping("/api")
 	//1. Um método que será nossa rota de cadastro
 	//2. Por que Pessoa? Toda vez que formos cadastrar uma pessoa vamos informar o nome e a idade, em seguida será retornado o nome, idade e o código da pessoa 
-	public Pessoa cadastrar(@RequestBody Pessoa obj){
+	//public Pessoa cadastrar(@RequestBody Pessoa obj){
+	public ResponseEntity<?> cadastrar(@RequestBody Pessoa obj){
 		//3. Como fazer um insert? return acao. (os métodos que vem depois do ponto é do groupRepository) para salvar cadastrar usa o método save, e dentro do save tem que passar um obj do tipo pessoa. 
 		
 		//4. Como vou pegar uma informação do tipo pessoa? Dentro do parâmetro da função Pessoa cadastrar() -> estou esperando uma requisição do tipo Pessoa obj 
-		return acao.save(obj); //save terá acesso através do obj. 
+		//return acao.save(obj); //save terá acesso através do obj. 
+		return servico.cadastrar(obj);
 	}
 
-	@GetMapping("/api")
+	/* @GetMapping("/api")
 	public List<Pessoa> selecionar(){
 		return acao.findAll();
-	}
+	} */
+	 @GetMapping("/api")
+	public ResponseEntity<?> selecionar(){
+		return servico.selecionar();
+	} 
+
 
 	@GetMapping("/api/{codigo}")
 	public Pessoa selecionarPeloCodigo(@PathVariable int codigo){
@@ -125,6 +137,4 @@ public class Controle {
 	public ResponseEntity<?> status(){
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
-
-
 }
